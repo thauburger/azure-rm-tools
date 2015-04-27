@@ -1,0 +1,48 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "description": "Create a premium storage account. Defaults to West US."
+  },
+  "parameters": {
+    "newStorageAccountName": {
+      "type": "string",
+      "metadata": {
+          "description": "Name of the storage account"
+      }
+    },
+    "storageAccountType": {
+      "type": "string",
+      "defaultValue": "Premium_LRS",
+      "allowedValues": [
+        "Premium_LRS"
+      ],
+      "metadata": {
+          "description": "Storage account type"
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue" : "West US",
+      "allowedValues": [
+        "West US",
+        "West Europe",
+        "Southeast Asia"
+      ],
+      "metadata": {
+          "description": "Location of storage account"
+      }
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[parameters('newStorageAccountName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "accountType": "[parameters('storageAccountType')]"
+      }
+    }
+  ]
+}
